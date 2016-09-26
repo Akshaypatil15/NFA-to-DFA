@@ -3,6 +3,17 @@ Convert a nondeterministic finite state automaton (NFA) to a deterministic finit
 
 实现 `NFA` -> `DFA` ， 使用 `json` 来进行数据存储
 
+环境： `python2.7`  
+系统： `archlinux`
+
+## Usage
+
+- `git clone git@github.com:huybery/NFA-to-DFA.git`
+- fill the NFA data in `NFA.json`
+- run  `python2 convert.py`
+- cat `DFA.json`
+- You will see a miracle :smile:
+
 ## 如何表示 NFA 和 DFA
 
 大部分教材是用临接矩阵来表示数据的，我觉得不如直接使用五元组的键值对方便。
@@ -188,3 +199,7 @@ def calc_dfa(k_set, e_set, f, s_set, z_set):
 搞懂原理之后用手去演算真实费心费力，所以就决定用代码来实现  
 最后用动态规划做了优化  大概花了一上午时间...  
 写过之后对 `子集构造法` 有了更深刻的理解
+
+# License
+
+GPL-3.0
