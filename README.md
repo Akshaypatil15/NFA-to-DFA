@@ -5,7 +5,7 @@ Convert a nondeterministic finite state automaton (NFA) to a deterministic finit
 
 ## 如何表示 NFA 和 DFA
 
-书上是用临接矩阵来表示数据的，我觉得不如直接使用五元组的键值对方面。
+大部分教材是用临接矩阵来表示数据的，我觉得不如直接使用五元组的键值对方便。
 
 如典型的 `NFA` 可以表示为：
 
