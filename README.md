@@ -70,6 +70,7 @@ Convert a nondeterministic finite state automaton (NFA) to a deterministic finit
 | f | 转换函数 |
 | s | 初态  |
 | z | 终态 |
+| # | ε |
 
 ## 闭包的实现
 
