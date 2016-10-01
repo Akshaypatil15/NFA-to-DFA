@@ -31,16 +31,11 @@ System： `archlinux`
 - cat `DFA.json`
 - You will see a miracle :smile:
 
-# Documentation
 
-## `Re` -> `NFA` Thompson 算法
----
+# `Re` -> `NFA` Thompson 算法
 
----
 
-## `NFA` -> `DFA` 最小子集构造法
-
----
+# `NFA` -> `DFA` 最小子集构造法
 
 ## 如何表示 NFA 和 DFA
 
