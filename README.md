@@ -1,12 +1,27 @@
-# NFA-to-DFA
-Convert a nondeterministic finite state automaton (NFA) to a deterministic finite state automaton (DFA).
+# PyLex
 
-实现 `NFA` -> `DFA` ， 使用 `json` 来进行数据存储
+A simple lex by python :snake:
 
-环境： `python2.7`  
-系统： `archlinux`
+Copyright (C) 2016 huybery All rights reserved.
 
-## Usage
+## Intro
+
+PyLex 是一个 `lex` 的 `python` 简单实现，包含了如下功能：
+
+- [ ] 实现 `regular expression` -> `NFA`
+- [x] 实现 `NFA` -> `DFA`
+- [ ] `DFA` 最小化
+- [ ] `miniDFA` -> 词法分析器
+
+注：这个版本只用来学习参考，**请勿用于生产环境**
+
+## Requirements
+
+Environment： `python2.7`  
+DataType： `json`  
+System： `archlinux`
+
+## How to Use
 
 - `git clone git@github.com:huybery/NFA-to-DFA.git`
 - fill the NFA data in `NFA.json`
@@ -14,7 +29,9 @@ Convert a nondeterministic finite state automaton (NFA) to a deterministic finit
 - cat `DFA.json`
 - You will see a miracle :smile:
 
-## 如何表示 NFA 和 DFA
+## Documentation
+
+### 如何表示 NFA 和 DFA
 
 大部分教材是用临接矩阵来表示数据的，我觉得不如直接使用五元组的键值对方便。
 
@@ -72,7 +89,7 @@ Convert a nondeterministic finite state automaton (NFA) to a deterministic finit
 | z | 终态 |
 | # | ε |
 
-## 闭包的实现
+### 闭包的实现
 
 原理是一个递归，通过判断转移时的条件来决定下一个状态
 
@@ -101,7 +118,7 @@ def closure(f, cache, I, arc):
     return res
 ```
 
-## move 和 ε 闭包
+### move 和 ε 闭包
 
 其实这两个作用方式是基本相同的 所以可以整合到 `closure` 接口中
 
@@ -120,7 +137,7 @@ def ep_closure(f, cache, I):
     return closure(f, cache["#"], I, '#')
 ```
 
-## 引入缓存（cache）
+### 引入缓存（cache）
 
 因为在进行转移的时候其实做了大量的重复性转移  
 所以自己构造了一个缓存机制来优化速度 性能得到大幅度提升
@@ -137,7 +154,7 @@ def set_cache(e_set):
     return cache
 ```
 
-## 转换流程的实现
+### 转换流程的实现
 
 代码里基本每一步都写了注释 可读性应该很好  
 实现想法是构造两个队列 一个任务队列一个结果队列  
@@ -204,3 +221,5 @@ def calc_dfa(k_set, e_set, f, s_set, z_set):
 # License
 
 GPL-3.0
+
+Copyright (c) 2016 Huybery
