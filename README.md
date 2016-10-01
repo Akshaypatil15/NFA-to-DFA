@@ -13,6 +13,8 @@ PyLex 是一个 `lex` 的 `python` 简单实现，包含了如下功能：
 - [ ] `DFA` 最小化
 - [ ] `miniDFA` -> 词法分析器
 
+`RE` -- Thompson --> `NFA` -- 子集构造算法 --> `DFA` -- Hopcroft --> `词法分析器代码`
+
 注：这个版本只用来学习参考，**请勿用于生产环境**
 
 # Requirements
