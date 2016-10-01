@@ -19,17 +19,17 @@ PyLex 是一个 `lex` 的 `python` 简单实现，包含了如下功能：
 
 ## Requirements
 
-Environment： `python2.7`  
-DataType： `json`  
-System： `archlinux`
+- Environment： `python2.7`  
+- DataType： `json`  
+- System： `archlinux`
 
 ## How to Use
 
-- `git clone git@github.com:huybery/NFA-to-DFA.git`
-- fill the NFA data in `NFA.json`
-- run  `python2 convert.py`
-- cat `DFA.json`
-- You will see a miracle :smile:
+1. `git clone git@github.com:huybery/NFA-to-DFA.git`
+2. fill the NFA data in `NFA.json`
+3. run  `python2 convert.py`
+4. cat `DFA.json`
+5. You will see a miracle :smile:
 
 
 ## `Re` -> `NFA` Thompson 算法
@@ -37,7 +37,7 @@ System： `archlinux`
 
 ## `NFA` -> `DFA` 最小子集构造法
 
-### 如何表示 NFA 和 DFA
+- ### 如何表示 NFA 和 DFA
 
 大部分教材是用临接矩阵来表示数据的，我觉得不如直接使用五元组的键值对方便。
 
@@ -84,7 +84,7 @@ System： `archlinux`
 }
 ```
 
-数据文档
+**数据文档**
 
 | 变量        | 意义           |
 | ------------- |:-------------:|
@@ -95,7 +95,7 @@ System： `archlinux`
 | z | 终态 |
 | # | ε |
 
-### 闭包的实现
+- ### 闭包的实现
 
 原理是一个递归，通过判断转移时的条件来决定下一个状态
 
@@ -124,7 +124,7 @@ def closure(f, cache, I, arc):
     return res
 ```
 
-### move 和 ε 闭包
+- ### move 和 ε 闭包
 
 其实这两个作用方式是基本相同的 所以可以整合到 `closure` 接口中
 
@@ -143,7 +143,7 @@ def ep_closure(f, cache, I):
     return closure(f, cache["#"], I, '#')
 ```
 
-### 引入缓存（cache）
+- ### 引入缓存（cache）
 
 因为在进行转移的时候其实做了大量的重复性转移  
 所以自己构造了一个缓存机制来优化速度 性能得到大幅度提升
@@ -160,7 +160,7 @@ def set_cache(e_set):
     return cache
 ```
 
-### 转换流程的实现
+- ### 转换流程的实现
 
 代码里基本每一步都写了注释 可读性应该很好  
 实现想法是构造两个队列 一个任务队列一个结果队列  
