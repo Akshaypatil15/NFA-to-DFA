@@ -33,6 +33,15 @@ System： `archlinux`
 
 # Documentation
 
+## `Re` -> `NFA` Thompson 算法
+---
+
+---
+
+## `NFA` -> `DFA` 最小子集构造法
+
+---
+
 ## 如何表示 NFA 和 DFA
 
 大部分教材是用临接矩阵来表示数据的，我觉得不如直接使用五元组的键值对方便。
@@ -213,6 +222,8 @@ def calc_dfa(k_set, e_set, f, s_set, z_set):
 
     return dfa
 ```
+
+---
 
 # 心得
 
