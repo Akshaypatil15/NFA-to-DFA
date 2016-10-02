@@ -2,7 +2,7 @@
 
 A simple lex by python :snake:
 
-Copyright (C) 2016 huybery All rights reserved.
+If the implementation is hard to explain, it's a bad idea.
 
 ## Intro
 
