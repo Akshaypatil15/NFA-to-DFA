@@ -1,19 +1,14 @@
-# PyLex
+# NFA - DFA
 
-A simple lex by python :snake:
+A simple convert from NFA to DFA by python :snake:
 
 If the implementation is hard to explain, it's a bad idea.
 
 ## Intro
 
-PyLex 是一个 `lex` 的 `python` 简单实现，包含了如下功能：
-
-- [ ] 实现 `regular expression` -> `NFA`
-- [x] 实现 `NFA` -> `DFA`
-- [ ] `DFA` 最小化
-- [ ] `miniDFA` -> 词法分析器
-
 `RE` -- Thompson --> `NFA` -- 子集构造算法 --> `DFA` -- Hopcroft --> `词法分析器代码`
+
+这里我们实现了 __子集构造算法__
 
 注：这个版本只用来学习参考，__请勿用于生产环境__
 
@@ -30,9 +25,6 @@ PyLex 是一个 `lex` 的 `python` 简单实现，包含了如下功能：
 3. run  `python2 convert.py`
 4. cat `DFA.json`
 5. You will see a miracle :smile:
-
-
-## `Re` -> `NFA` Thompson 算法
 
 
 ## `NFA` -> `DFA` 最小子集构造法
