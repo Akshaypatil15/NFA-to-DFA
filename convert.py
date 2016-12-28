@@ -122,7 +122,7 @@ def calc_dfa(k_set, e_set, f, s_set, z_set):
                 dfa["s"].append(j)
             if not len(t & z_set) == 0:
                 dfa["z"].append(j)
-
+    dfa["z"] = list(set(dfa["z"])) #消除相同的终止状态
     return dfa
 
 
