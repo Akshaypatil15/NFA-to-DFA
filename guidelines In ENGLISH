@@ -1,0 +1,174 @@
+INTRO
+	RE -- Thompson --> NFA -- Subset construction algorithm --> DFA -- Hopcroft --> Lexical analyzer code
+	Here we implement the subset construction algorithm
+
+NFA -> DFA	Minimum subset construction method
+-------------------------------------------------------------------
+How to represent NFA and DFA
+
+Most of the textbook is to use the temporary matrix to represent the data, I think it is better to use the five-element key to facilitate the convenience.
+
+Such as the typical NFA can be expressed as:
+
+{
+  "k": ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+  "e": ["a", "b"],
+  "f": {
+    "0": {
+      "#": ["1", "7"]
+    },
+    "1": {
+      "#": ["2", "4"]
+    },
+    "2": {
+      "a": ["3"]
+    },
+    "3": {
+      "#": ["6"]
+    },
+    "4": {
+      "b": ["5"]
+    },
+    "5": {
+      "#": ["6"]
+    },
+    "6": {
+      "#": ["1", "7"]
+    },
+    "7": {
+      "a": ["8"]
+    },
+    "8": {
+      "b": ["9"]
+    },
+    "9": {
+      "b": ["10"]
+    }
+  },
+  "s": ["0"],
+  "z": ["10"]
+e}
+----------------------------------------------------------------
+Data document
+
+Data variable meaning
+	K state set
+	E alphabet
+	F conversion function
+	S initial state
+	Z the final state
+	# e
+----------------------------------------------------------------
+The realization of closures
+
+The principle is a recursion, by determining the conditions of the transfer to determine the next state
+def closure(f, cache, I, arc):
+    """
+    the realization of closures
+    """
+    res = set()
+    for i in I:
+        if not i in cache:
+            cache[i] = set()
+            res = set()
+    for i in I:
+        if not i in cache:
+            cache[i] = set()
+   # When the conversion arc is judged to be ε
+   		if arc == '#':
+            cache[i] = set([i])
+            # achieve move
+            if i in f:
+                if arc in f[i]:
+                    # If the ε is recursively proceeding forward
+                    if arc == '#':
+                        cache[i] |= closure(f, cache, set(f[i][arc]), arc)
+                    else:
+                        cache[i] = set(f[i][arc])
+                        # Get the cache after the closure
+                        res |= cache[i]
+    return res
+-----------------------------------------------------------------
+move and ε closure
+
+In fact, these two ways of action is basically the same can be integrated to clousure interface
+
+def move(f, cache, I, arc):
+    """
+    Arc conversion interface
+    """
+    return closure(f, cache[arc], I, arc)
+
+
+def ep_closure(f, cache, I):
+    """
+    ε Closure
+    """
+    return closure(f, cache["#"], I, '#')
+------------------------------------------------------------------
+Introduced cache
+Because in the transfer of the time actually do a lot of repetitive transfer So they constructed a cache mechanism to optimize the speed performance has been greatly improved
+	def set_cache(e_set):
+    """
+    Set the cache to record the status of each of the closures
+    """
+    cache = {}
+    for i in e_set:
+        cache[i] = {}
+    cache['#'] = {}
+    return cache
+------------------------------------------------------------------
+Implementation of the conversion process
+Every step in the code is written to read the readability should be very good
+Implementing the idea is to construct two queues with a task queue for a result queue
+ 
+ def calc_dfa(k_set, e_set, f, s_set, z_set):
+    """
+    Implement the conversion process
+    """
+    # initialization DFA Result data structure，the alphabet does not change
+    dfa = set_dfa(e_set)
+    # structure DFA Result Queue
+    dfa_set = []
+    # Initialize the cache，Use the alphabet as a key
+    cache = set_cache(e_set)
+    # On the initial state ε-closure(I)
+    ep = ep_closure(f, cache, s_set)
+    # Initialize a bi-directional list ，Implement efficient insert deletion (Task queue)
+    queue = deque([ep])
+    # Result in the queue NFA After ε closed after the initial state
+    dfa_set.append([ep])
+    dfa["k"].append("0")
+    dfa["s"].append("0")
+    # If ep the state has a final set to DFA final set
+    if not len(ep & z_set) == 0:
+        dfa["z"].append("0")
+    i = 0
+    # Task queue loop
+    while queue:
+        # Remove the state that needs to be transferred
+        T = queue.popleft()
+        j = ""
+        index = str(i)
+        i = i + 1
+        dfa["f"][index] = {}
+        # After the arc conversion, the ε closure is performed
+        for s in e_set:
+            # The next state
+            t = ep_closure(f, cache, move(f, cache, T, s))
+            try:
+                # Whether this state exists in the result queue
+                j = str(dfa_set.index(t))
+            except ValueError:
+                queue.append(t)
+                j = str(len(dfa_set))
+                dfa_set.append(t)
+                dfa["k"].append(j)
+            dfa["f"][index][s] = j
+            if not len(t & s_set) == 0:
+                dfa["s"].append(j)
+            if not len(t & z_set) == 0:
+                dfa["z"].append(j)
+
+    return dfa
+--------------------------------------------------------------------
